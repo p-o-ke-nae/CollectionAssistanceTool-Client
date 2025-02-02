@@ -20,8 +20,9 @@ jobs:
         with:
           node-version: '18.18.0'  # Node.jsのバージョンを変更
 
-      - name: Add SSH key to known hosts
+      - name: Create .ssh directory and add known hosts
         run: |
+          mkdir -p ~/.ssh
           ssh-keyscan -p 8022 118.27.122.252 >> ~/.ssh/known_hosts
 
       - name: Install dependencies
