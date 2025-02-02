@@ -6,7 +6,7 @@ import CustomButton from "../../pokenae.WebComponent/src/components/CustomButton
 
 export default function Home() {
   const clickHandler = () => {
-    alert('test');
+    alert('testdayo');
   };
   return (
     <div className={styles.page}>
