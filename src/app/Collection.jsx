@@ -15,7 +15,7 @@ const Collection = ({ showInfo }) => {
             height={38}
             priority
           />
-              <CustomButton onClick={() => { showInfo("testdayuo", 1); }}>test</CustomButton>
+              <CustomButton onClick={() => { showInfo("デプロイしました", 1); }}>test</CustomButton>
           <ol>
             <li>
               Get started by editing <code>src/app/page.tsx</code>.
