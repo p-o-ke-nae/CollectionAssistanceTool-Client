@@ -49,5 +49,5 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
-          rsync -avz -e "ssh -i private_key -p 8022" --exclude node_modules ./ $USERNAME@$HOST:/public_html/ozaroom.com/collectionassistancetool
-          ssh -i private_key -p 8022 $USERNAME@$HOST "cd /public_html/ozaroom.com/collectionassistancetool && npm install && npm run start"
+          rsync -avz -e "ssh -i private_key -p 8022" --exclude node_modules ./ $USERNAME@$HOST:public_html/ozaroom.com/collectionassistancetool
+          ssh -i private_key -p 8022 $USERNAME@$HOST "cd public_html/ozaroom.com/collectionassistancetool && npm install && npm run start"
