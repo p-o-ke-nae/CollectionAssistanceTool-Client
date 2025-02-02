@@ -20,6 +20,10 @@ jobs:
         with:
           node-version: '18.18.0'  # Node.jsのバージョンを変更
 
+      - name: Add SSH key to known hosts
+        run: |
+          ssh-keyscan -p 8022 118.27.122.252 >> ~/.ssh/known_hosts
+
       - name: Install dependencies
         run: npm install
 
