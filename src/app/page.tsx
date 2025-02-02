@@ -1,7 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import CustomButton from "../../pokenae.WebComponent/src/components/CustomButton";
 
 export default function Home() {
+  const clickHandler = () => {
+    alert('test');
+  };
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -13,6 +19,7 @@ export default function Home() {
           height={38}
           priority
         />
+        <CustomButton onClick={clickHandler}>test</CustomButton>
         <ol>
           <li>
             Get started by editing <code>src/app/page.tsx</code>.
