@@ -21,9 +21,11 @@ jobs:
           node-version: '18.18.0'  # Node.jsのバージョンを変更
 
       - name: Create .ssh directory and add known hosts
+        env:
+          HOST: ${{ secrets.HOST }}
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -p 8022 118.27.122.252 >> ~/.ssh/known_hosts
+          ssh-keyscan -p 22 $HOST >> ~/.ssh/known_hosts
   
       - name: Install dependencies
         run: npm install
@@ -39,7 +41,7 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
-          ssh -i private_key -p 8022 $USERNAME@$HOST "mkdir -p public_html/ozaroom.com/collectionassistancetool"
+          ssh $USERNAME@$HOST -i private_key -p 22 "mkdir -p collectionassistancetool"
   
       - name: Deploy to ConoHa Wing
         env:
@@ -49,5 +51,5 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
-          rsync -avz -e "ssh -i private_key -p 8022" --exclude node_modules ./ $USERNAME@$HOST:public_html/ozaroom.com/collectionassistancetool
-          ssh -i private_key -p 8022 $USERNAME@$HOST "cd public_html/ozaroom.com/collectionassistancetool && npm install && npm run start"
+          rsync -avz -e "ssh -i private_key -p 22" --exclude node_modules ./ $USERNAME@$HOST:collectionassistancetool
+          ssh $USERNAME@$HOST -i private_key -p 22 "cd collectionassistancetool && npm install && npm run start"
