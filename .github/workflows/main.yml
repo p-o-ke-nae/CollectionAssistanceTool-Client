@@ -52,4 +52,4 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
           rsync -avz -e "ssh -i private_key -p 22" --exclude node_modules ./ $USERNAME@$HOST:collectionassistancetool
-          ssh $USERNAME@$HOST -i private_key -p 22 "cd collectionassistancetool && npm install && npm run start"
+          ssh $USERNAME@$HOST -i private_key -p 22 "cd collectionassistancetool && npm run start"
