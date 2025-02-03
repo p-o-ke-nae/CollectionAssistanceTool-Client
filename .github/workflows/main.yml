@@ -41,7 +41,7 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
-          ssh $USERNAME@$HOST -i private_key -p 22 "mkdir -p public_html/ozaroom.com/collectionassistancetool"
+          ssh $USERNAME@$HOST -i private_key -p 22 "mkdir -p collectionassistancetool"
   
       - name: Deploy to ConoHa Wing
         env:
@@ -51,5 +51,5 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
-          rsync -avz -e "ssh -i private_key -p 22" --exclude node_modules ./ $USERNAME@$HOST:public_html/ozaroom.com/collectionassistancetool
-          ssh $USERNAME@$HOST -i private_key -p 22 "cd public_html/ozaroom.com/collectionassistancetool && npm install && npm run start"
+          rsync -avz -e "ssh -i private_key -p 22" --exclude node_modules ./ $USERNAME@$HOST:collectionassistancetool
+          ssh $USERNAME@$HOST -i private_key -p 22 "cd collectionassistancetool && npm install && npm run start"
