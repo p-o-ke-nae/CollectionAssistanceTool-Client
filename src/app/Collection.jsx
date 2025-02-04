@@ -2,11 +2,14 @@ import React from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 import CustomButton from '../../pokenae.WebComponent/src/components/CustomButton';
-import { useMemo, useRef } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import CustomTable from '../../pokenae.WebComponent/src/components/CustomTable';
+import DexDetail from './components/DexDetail';
 
 const Collection = ({ showInfo, showWarning, showConfirm }) => { 
   const tableRef = useRef(null);
+  const [tableData, setTableData] = useState([]);
+  const [modalData, setModalData] = useState(null);
   const columns = useMemo(() => [
     { header: 'Picture', name: 'profilePicture', visible: true, editable: false, type: 'image', width: '100px', showHeader: true },
     { header: 'Name', name: 'name', visible: true, editable: true, type: 'text', width: '200px', showHeader: true },
@@ -92,7 +95,18 @@ const Collection = ({ showInfo, showWarning, showConfirm }) => {
         <CustomTable ref={tableRef} columns={columns} data={data} rowsPerPage={10} showConfirm={showConfirm} tableSettings={ tableSettings} onDataChange={handleDataChange} onRowClick={handleRowClick} /> {/* カスタムテーブルを追加 */}
         <CustomButton onClick={handleExportData}>Export Data</CustomButton> {/* テーブルデータをJSON形式でエクスポート */}
           
-        </main>
+      </main>
+      
+      {modalData && (
+        <DexDetail
+          modalData={modalData}
+          closeModal={closeModal}
+          handlePrevRow={handlePrevRow}
+          handleNextRow={handleNextRow}
+          columns={columns}
+        />
+      )}
+
         <footer className={styles.footer}>
           <a
             href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
