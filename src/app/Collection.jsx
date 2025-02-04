@@ -15,7 +15,8 @@ const Collection = ({ showInfo }) => {
             height={38}
             priority
           />
-              <CustomButton onClick={() => { showInfo("デプロイしましたdevテストtesttestmasternodeaaaprivatekeynode.jsaa", 1); }}>test</CustomButton>
+        <CustomButton onClick={() => { showInfo("デプロイしましたdevテストtesttestmasternodeaaaprivatekeynode.jsaa", 1); }}>test</CustomButton>
+        <CustomButton onClick={() => { showInfo("ポート開放！", 1); }}>test</CustomButton>
           <ol>
             <li>
               Get started by editing <code>src/app/page.tsx</code>.
