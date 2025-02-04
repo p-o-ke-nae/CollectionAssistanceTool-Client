@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack --port 3001",
     "build": "next build",
-    "start": "next start -p 80",
+    "start": "next start -p 443",
     "lint": "next lint",
     "update-components": "cd c:\\Users\\o_leg\\source\\repos\\CollectionAssistanceTool.Client\\collectionassistancetool\\pokenae.WebComponent && git pull origin main && npm install && cd c:\\Users\\o_leg\\source\\repos\\CollectionAssistanceTool.Client\\collectionassistancetool"
   },
