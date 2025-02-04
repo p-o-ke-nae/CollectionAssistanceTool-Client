@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import CustomButton from '../../pokenae.WebComponent/src/components/CustomButton';
 
-const Collection = ({ showInfo }) => { 
+const Collection = ({ showInfo, showWarning }) => { 
   return (
     <div className={styles.page}>
         <main className={styles.main}>
@@ -17,6 +17,7 @@ const Collection = ({ showInfo }) => {
           />
         <CustomButton onClick={() => { showInfo("デプロイしましたdevテストtesttestmasternodeaaaprivatekeynode.jsaa", 1); }}>test</CustomButton>
         <CustomButton onClick={() => { showInfo("ポート開放！", 1); }}>test</CustomButton>
+        <CustomButton onClick={() => { showWarning("ポート変更"); }}>test</CustomButton>
           <ol>
             <li>
               Get started by editing <code>src/app/page.tsx</code>.
