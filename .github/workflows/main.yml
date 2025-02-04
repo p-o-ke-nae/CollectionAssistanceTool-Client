@@ -51,7 +51,7 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
-          ssh -i private_key -p 22 $USERNAME@$HOST "pkill -f 'next start'"
+          ssh -i private_key -p 80 $USERNAME@$HOST "pkill -f 'next start'"
 
       - name: Deploy to ConoHa Wing
         env:
