@@ -43,16 +43,7 @@ jobs:
           chmod 600 private_key
           ssh $USERNAME@$HOST -i private_key -p 22 "mkdir -p collectionassistancetool"
 
-      - name: Stop existing application
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          HOST: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.USERNAME }}
-        run: |
-          echo "$SSH_PRIVATE_KEY" > private_key
-          chmod 600 private_key
-          ssh -i private_key -p 22 $USERNAME@$HOST "nohup sudo lsof -t -i:80 | grep node | xargs sudo kill -9"
-
+      
       - name: Deploy to ConoHa Wing
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
