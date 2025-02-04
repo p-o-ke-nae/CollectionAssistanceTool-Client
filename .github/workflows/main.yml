@@ -51,7 +51,7 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
-          ssh -i private_key -p 22 $USERNAME@$HOST "nohup sudo netstat -tuln | grep ':80 ' | awk '{print \$7}' | cut -d'/' -f1 | xargs sudo kill -9"
+          ssh -i private_key -p 22 $USERNAME@$HOST "nohup sudo lsof -t -i:80 | grep node | xargs sudo kill -9"
 
       - name: Deploy to ConoHa Wing
         env:
