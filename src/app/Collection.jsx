@@ -1,26 +1,54 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 import CustomButton from '../../pokenae.WebComponent/src/components/CustomButton';
 import { useState, useMemo, useRef } from 'react';
 import CustomTable from '../../pokenae.WebComponent/src/components/CustomTable';
 import DexDetail from './components/DexDetail';
+import CustomLoading from '../../pokenae.WebComponent/src/components/CustomLoading';
 
 const Collection = ({ showInfo, showWarning, showConfirm }) => { 
   const tableRef = useRef(null);
   const [tableData, setTableData] = useState([]);
   const [modalData, setModalData] = useState(null);
-  const columns = useMemo(() => [
-    { header: 'Picture', name: 'profilePicture', visible: true, editable: false, type: 'image', width: '100px', showHeader: true },
-    { header: 'Name', name: 'name', visible: true, editable: true, type: 'text', width: '200px', showHeader: true },
-    { header: 'Email', name: 'email', visible: true, editable: false, type: 'email', width: '300px', showHeader: true },
-    { header: 'Message', name: 'message', visible: false, editable: false, type: 'text', width: '300px', showHeader: true },
-    { header: 'Yes/No', name: 'yesno', visible: true, editable: true, type: 'boolean', width: '100px', showHeader: true },
-    { header: 'Age', name: 'age', visible: true, editable: true, type: 'number', width: '100px', settings: { min: 0, max: 120, step: 1 }, showHeader: true },
-    
-  ], []);
+  const [columns, setColumns] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  
+  useEffect(() => {
+    const fetchColumns = async () => {
+      try {
+        const response = await fetch('https://collectionassistancetool-a4bkgdf8f4beecgj.japaneast-01.azurewebsites.net/api/Column?sheetId=15vjM0HD16LGA7f9hLZC3DZIZaYnbOD41rPKI5gezh0c', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        const formattedData = data.map(item => ({
+          header: item.headerName,
+          name: item.id,
+          visible: item.isVisible,
+          editable: item.editable,
+          type: item.type,
+          width: `${item.width}px`,
+          showHeader: item.isShowHeader,
+          settings: item.settings,
+        }));
+        setColumns(formattedData);
+      } catch (error) {
+        console.error('列の取得に失敗しました．:', error);
+        setColumns([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchColumns();
+  }, []);
+
   const data = useMemo(() => {
     const records = [];
     for (let i = 1; i <= 1025; i++) {
@@ -79,6 +107,7 @@ const Collection = ({ showInfo, showWarning, showConfirm }) => {
   
   return (
     <div className={styles.page}>
+      <CustomLoading isLoading={isLoading} />
         <main className={styles.main}>
           <Image
             className={styles.logo}
